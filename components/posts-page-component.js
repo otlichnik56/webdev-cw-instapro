@@ -16,11 +16,11 @@ export function renderPostsPageComponent({ appEl }) {
                 <ul class="posts">
                   <li class="post">
                     <div class="post-header" data-user-id="642d00329b190443860c2f31">
-                        <img src="https://www.imgonline.com.ua/examples/bee-on-daisy.jpg" class="post-header__user-image">
+                        <img src="https://static.kinoafisha.info/k/articles/1200/upload/articles/133262627346.jpg" class="post-header__user-image">
                         <p class="post-header__user-name">Иван Иваныч</p>
                     </div>
                     <div class="post-image-container">
-                      <img class="post-image" src="https://www.imgonline.com.ua/examples/bee-on-daisy.jpg">
+                      <img class="post-image" src="https://static.kinoafisha.info/k/articles/1200/upload/articles/133262627346.jpg">
                     </div>
                     <div class="post-likes">
                       <button data-post-id="642d00579b190443860c2f32" class="like-button">
