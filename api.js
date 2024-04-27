@@ -77,10 +77,13 @@ export function postPost({ token, description, imageUrl }) {
     }),
   })
     .then((response) => {
-      if (response.status === 401) {
-        throw new Error("Нет авторизации");
+      if (response.status === 400) {
+        throw new Error("Все поля должны быть заполненны");
       }
       return response.json();
+    })
+    .catch((error) => {
+      alert(error);
     });
 }
 
