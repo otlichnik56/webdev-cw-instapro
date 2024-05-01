@@ -120,7 +120,7 @@ export function loginUser({ login, password }) {
   });
 }
 
-// Загружает картинку в облако, возвращает url загруженной картинки
+// Загружает картинку в облако, возвращает url загруженной картинки!
 export function uploadImage({ file }) {
   const data = new FormData();
   data.append("file", file);

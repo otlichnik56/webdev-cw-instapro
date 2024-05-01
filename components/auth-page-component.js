@@ -54,7 +54,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
 
     appEl.innerHTML = appHtml;
 
-    // Не вызываем перерендер, чтобы не сбрасывалась заполненная форма
+    // Не вызываем перерендер, чтобы не сбрасывалась заполненная форма!
     // Точечно обновляем кусочек дом дерева
     const setError = (message) => {
       appEl.querySelector(".form-error").textContent = message;

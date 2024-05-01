@@ -38,7 +38,7 @@ export function renderPostsPageComponent({ appEl }) {
       }).join("");
 
   /** 
-   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
+   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"!
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
   const appHtml = `
@@ -85,10 +85,6 @@ export function renderPostsPageComponent({ appEl }) {
             console.error(error);
         });
       }
-
-
-
-
     });
   }
 }

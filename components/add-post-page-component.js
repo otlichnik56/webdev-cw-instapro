@@ -7,7 +7,7 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
 
   const render = () => {
     
-    // TODO: Реализовать страницу добавления поста !!!!!!!!!
+    // TODO: Реализовать страницу добавления поста !!!!!!!!!!!
     const formHtml =  `
       <div class="page-container">
         <div class="header-container">
