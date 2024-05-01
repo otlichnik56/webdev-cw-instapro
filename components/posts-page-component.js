@@ -1,6 +1,8 @@
-import { USER_POSTS_PAGE, USER_LIKE } from "../routes.js";
+import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage, getToken, renderApp } from "../index.js";
+import { isLikedPost } from "../api.js";
+
 import { formatDistanceToNow } from "date-fns"
 import { ru } from 'date-fns/locale';
 
@@ -36,7 +38,7 @@ export function renderPostsPageComponent({ appEl }) {
       }).join("");
 
   /** 
-   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
+   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"!
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
   const appHtml = `
@@ -67,10 +69,22 @@ export function renderPostsPageComponent({ appEl }) {
       const post = posts.find(post => post.id === postId);
       const id = post.id;
       const isLiked = post.isLiked;
+      /**
       goToPage(USER_LIKE, {
         postId: id,
         isLiked: isLiked
-      });
+      });*/
+      const token = getToken();
+      if(token !== undefined){
+        isLikedPost({ token: getToken(), id: id, isLiked: isLiked })
+          .then((updatedPost) => {
+            updatePost(updatedPost, posts);  
+            renderApp();        
+          })
+          .catch((error) => {
+            console.error(error);
+        });
+      }
     });
   }
 }
@@ -131,9 +145,11 @@ function renderPost(post) {
           <span class="user-name">${symbol(post.user.name)}</span> "${post.description}"
         </p>
         <p class="post-date">
-        ${formatDistanceToNow(post.createdAt, {locale: ru})}
+        $${formatDistanceToNow(post.createdAt, {locale: ru})}
         </p>
       </li>`;
   }
+
+  //${formatDistanceToNow(post.createdAt, {locale: ru})}
 
 }
