@@ -1,4 +1,4 @@
-import { getPosts, getPostsUser, postPost, isLikedPost } from "./api.js";
+import { getPosts, getPostsUser, postPost} from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -9,7 +9,7 @@ import {
   USER_POSTS_PAGE,
   USER_LIKE
 } from "./routes.js";
-import { renderPostsPageComponent, updatePost } from "./components/posts-page-component.js";
+import { renderPostsPageComponent} from "./components/posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
 import {
   getUserFromLocalStorage,
@@ -68,20 +68,6 @@ export const goToPage = (newPage, data) => {
         });
     }
 
-    if (newPage === USER_LIKE) {
-      //renderApp();
-      const id = data.postId;
-      const flag = data.isLiked;
-      return isLikedPost({ token: getToken(), id: id, isLiked: flag })
-        .then((updatedPost) => {
-          updatePost(updatedPost, posts);  
-          renderApp();        
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-
     if (newPage === USER_POSTS_PAGE) {
       const id = data.userId;
       // !!!!!!!!!!! TODO: реализовать получение постов юзера из API
@@ -104,7 +90,7 @@ export const goToPage = (newPage, data) => {
   throw new Error("страницы не существует");
 };
 
-const renderApp = () => {
+export const renderApp = () => {
   const appEl = document.getElementById("app");
   if (page === LOADING_PAGE) {
     return renderLoadingPageComponent({
@@ -132,11 +118,13 @@ const renderApp = () => {
       appEl,
       onAddPostClick({ description, imageUrl }) {
         //!!!!!!!!!!!
-        postPost({ token: getToken(), description, imageUrl })
-        .then(() => {
-          goToPage(POSTS_PAGE);
-        });
-        console.log("Добавляю пост...", { description, imageUrl });        
+        if(description !== null && description !== undefined && description !== '' && imageUrl !== null && imageUrl !== undefined && imageUrl !== ''){
+          postPost({ token: getToken(), description, imageUrl })
+          .then(() => {
+            goToPage(POSTS_PAGE);
+          });
+          console.log("Добавляю пост...", { description, imageUrl });
+        }        
       },
     });
   }
