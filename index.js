@@ -6,8 +6,7 @@ import {
   AUTH_PAGE,
   LOADING_PAGE,
   POSTS_PAGE,
-  USER_POSTS_PAGE,
-  USER_LIKE
+  USER_POSTS_PAGE
 } from "./routes.js";
 import { renderPostsPageComponent} from "./components/posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
@@ -33,7 +32,7 @@ export const logout = () => {
 };
 
 /**
- * Включает страницу приложения!
+ * Включает страницу приложения
  */
 export const goToPage = (newPage, data) => {
   if (
@@ -42,8 +41,7 @@ export const goToPage = (newPage, data) => {
       AUTH_PAGE,
       ADD_POSTS_PAGE,
       USER_POSTS_PAGE,
-      LOADING_PAGE,
-      USER_LIKE
+      LOADING_PAGE
     ].includes(newPage)
   ) {
     if (newPage === ADD_POSTS_PAGE) {
@@ -70,7 +68,6 @@ export const goToPage = (newPage, data) => {
 
     if (newPage === USER_POSTS_PAGE) {
       const id = data.userId;
-      // !!!!!!!!!!! TODO: реализовать получение постов юзера из API
       return getPostsUser({ token: getToken(), id })
         .then((newPosts) => {
           page = USER_POSTS_PAGE;
@@ -117,7 +114,6 @@ export const renderApp = () => {
     return renderAddPostPageComponent({
       appEl,
       onAddPostClick({ description, imageUrl }) {
-        //!!!!!!!!!!!
         if(description !== null && description !== undefined && description !== '' && imageUrl !== null && imageUrl !== undefined && imageUrl !== ''){
           postPost({ token: getToken(), description, imageUrl })
           .then(() => {
@@ -136,7 +132,6 @@ export const renderApp = () => {
   }
 
   if (page === USER_POSTS_PAGE) {
-    // !!!!!!!!!!!!! TODO: реализовать страницу фотографию пользвателя
     return renderPostsPageComponent({
       appEl,
     });
