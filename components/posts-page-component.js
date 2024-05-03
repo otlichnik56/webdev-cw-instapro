@@ -74,6 +74,8 @@ export function renderPostsPageComponent({ appEl }) {
           .catch((error) => {
             console.error(error);
         });
+      } else {
+        alert("Необходимо авторизоваться или зарегистрироваться!");
       }
     });
   }
@@ -135,7 +137,7 @@ function renderPost(post) {
           <span class="user-name">${symbol(post.user.name)}</span> "${post.description}"
         </p>
         <p class="post-date">
-        $${formatDistanceToNow(post.createdAt, {locale: ru})}
+        ${formatDistanceToNow(post.createdAt, {locale: ru})}
         </p>
       </li>`;
   }

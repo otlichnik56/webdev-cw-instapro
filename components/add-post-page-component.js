@@ -1,5 +1,5 @@
-import { uploadImage } from "../api.js";
 import { renderHeaderComponent } from "./header-component.js";
+import { renderUploadImageComponent } from "./upload-image-component.js";
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   let imageUrl = "";
@@ -14,27 +14,9 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
         <div class="form">
           <h3 class="form-title">Добавить пост</h3>
           <div class="form-inputs">
-                <div class="upload=image">
-                    ${
-                      imageUrl
-                        ? `
-                        <div class="file-upload-image-conrainer">
-                          <img class="file-upload-image" src="${imageUrl}">
-                          <button class="file-upload-remove-button button">Заменить фото</button>
-                        </div>
-                        `
-                        : `
-                          <label class="file-upload-label secondary-button">
-                              <input
-                                type="file"
-                                class="file-upload-input"
-                                style="display:none"
-                              />
-                              Выберите фото
-                          </label>              
-                    `
-                    }
-                </div>
+
+            <div class="upload-image-container"></div>
+
             <label>
               Опишите фотографию:
               <textarea id="input_text" class="input textarea" rows="4">${description}</textarea>
@@ -59,20 +41,16 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
     element: document.querySelector(".header-container"),
     });
     
-    const fileInputElement = appEl.querySelector(".file-upload-input");    
+    const uploadImageContainer = appEl.querySelector(".upload-image-container");
 
-    fileInputElement?.addEventListener("change", () => {
-      const file = fileInputElement.files[0];
-      if (file) {
-        const lableEl = document.querySelector(".file-upload-label");
-        lableEl.setAttribute("disabled", true);
-        lableEl.textContent = "Загружаю файл...";
-        uploadImage({ file }).then(({ fileUrl }) => {   
-          imageUrl = fileUrl;
-          render();
-        });
-      }
-    });
+    if (uploadImageContainer) {
+      renderUploadImageComponent({
+        element: appEl.querySelector(".upload-image-container"),
+        onImageUrlChange(newImageUrl) {
+          imageUrl = newImageUrl;
+        },
+      });
+    }
 
     appEl.querySelector(".file-upload-remove-button")?.addEventListener("click", () => {
         imageUrl = "";
