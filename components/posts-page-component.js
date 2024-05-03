@@ -3,8 +3,8 @@ import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken, renderApp } from "../index.js";
 import { isLikedPost } from "../api.js";
 
-import { formatDistanceToNow } from "date-fns"
-import { ru } from 'date-fns/locale';
+//import { formatDistanceToNow } from "date-fns"
+//import { ru } from 'date-fns/locale';
 
 export function renderPostsPageComponent({ appEl }) {
   console.log("Актуальный список постов:", posts);
@@ -31,7 +31,7 @@ export function renderPostsPageComponent({ appEl }) {
             <span class="user-name">${symbol(post.user.name)}</span> "${post.description}"
           </p>
           <p class="post-date">
-          ${formatDistanceToNow(post.createdAt, {locale: ru})}
+          ${post.createdAt}
           </p>
         </li>`
       }).join("");
@@ -74,6 +74,8 @@ export function renderPostsPageComponent({ appEl }) {
           .catch((error) => {
             console.error(error);
         });
+      } else {
+        alert("Необходимо авторизоваться или зарегистрироваться!");
       }
     });
   }
@@ -135,7 +137,7 @@ function renderPost(post) {
           <span class="user-name">${symbol(post.user.name)}</span> "${post.description}"
         </p>
         <p class="post-date">
-        $${formatDistanceToNow(post.createdAt, {locale: ru})}
+        ${post.createdAt}
         </p>
       </li>`;
   }
